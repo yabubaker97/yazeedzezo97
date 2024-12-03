@@ -1,0 +1,722 @@
+﻿@model ProfileIndexViewModel
+@using Framework.Core.Data.ViewModel
+
+@{
+    //ViewData["IsBgShort"] = "true";
+    ViewData["Title"] = AppMainResources.PersonalProfile;
+    ViewData["ShowGreetingUser"] = true;
+    bool isArabic = CultureHelper.IsArabic;
+
+    var userInfo = Model.User;
+}
+
+@section otherCss {
+    <link rel="stylesheet" asp-append-version="true" href="~/V3/css/@(isArabic ? "ar/user-ind-profile-ar.css" : "user-ind-profile.css")" />
+}
+
+<!-- Top bar -->
+<div class="search_bar">
+    <h4>الملف الشخصي</h4>
+    <div class="d-flex gap-2">
+        <div class="btn-secondary">حفظ التغييرات</div>
+        <div class="btn-secondary-outline bg-white">يلغي</div>
+    </div>
+</div>
+
+<div class="cards-forms-container mt-4 gap-4">
+    <div class="d-flex flex-column align-items-center flex-grow-1">
+        <!-- All Tabs -->
+        <div class="personal_inforamtions_tabs w-100">
+            <button class="tab-btn active" data-target="basic_information">@AppMainResources.BasicInformation</button>
+            <button class="tab-btn" data-target="education" display-if="Model.IsTrainer">@AppMainResources.Education</button>
+            <button class="tab-btn" data-target="work_experience" display-if="Model.IsTrainer">@AppMainResources.WorkExperiences</button>
+            <button class="tab-btn" data-target="certficates_courses" display-if="Model.IsTrainer">@AppMainResources.CertificatesAndCourses</button>
+            <button class="tab-btn" data-target="skills" display-if="Model.IsTrainer">@AppMainResources.SkillsAndInterests</button>
+        </div>
+        <div class="tab-container show" id="personal_informations">
+            <!--Basic informations  -->
+            <partial name="_EditUserBasicInformationPartial" model="userInfo" />
+            @* 
+            <!-- education -->
+            <div class="expanded-container" id="education">
+                <div class="d-flex justify-content-between align-items-center expanded-container-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M22 4.85018V16.7402C22 17.7102 21.21 18.6002 20.24 18.7202L19.93 18.7602C18.29 18.9802 15.98 19.6602 14.12 20.4402C13.47 20.7102 12.75 20.2202 12.75 19.5102V5.60018C12.75 5.23018 12.96 4.89018 13.29 4.71018C15.12 3.72018 17.89 2.84018 19.77 2.68018H19.83C21.03 2.68018 22 3.65018 22 4.85018Z"
+                                  fill="url(#paint0_linear_578_7121)" />
+                            <path d="M10.71 4.71018C8.87999 3.72018 6.10999 2.84018 4.22999 2.68018H4.15999C2.95999 2.68018 1.98999 3.65018 1.98999 4.85018V16.7402C1.98999 17.7102 2.77999 18.6002 3.74999 18.7202L4.05999 18.7602C5.69999 18.9802 8.00999 19.6602 9.86999 20.4402C10.52 20.7102 11.24 20.2202 11.24 19.5102V5.60018C11.24 5.22018 11.04 4.89018 10.71 4.71018ZM4.99999 7.74018H7.24999C7.65999 7.74018 7.99999 8.08018 7.99999 8.49018C7.99999 8.91018 7.65999 9.24018 7.24999 9.24018H4.99999C4.58999 9.24018 4.24999 8.91018 4.24999 8.49018C4.24999 8.08018 4.58999 7.74018 4.99999 7.74018ZM7.99999 12.2402H4.99999C4.58999 12.2402 4.24999 11.9102 4.24999 11.4902C4.24999 11.0802 4.58999 10.7402 4.99999 10.7402H7.99999C8.40999 10.7402 8.74999 11.0802 8.74999 11.4902C8.74999 11.9102 8.40999 12.2402 7.99999 12.2402Z"
+                                  fill="url(#paint1_linear_578_7121)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_578_7121"
+                                                x1="20.7633"
+                                                y1="2.68023"
+                                                x2="13.5758"
+                                                y2="2.70282"
+                                                gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#273A97" />
+                                    <stop offset="1" stop-color="#5091CD" />
+                                </linearGradient>
+                                <linearGradient id="paint1_linear_578_7121"
+                                                x1="10.0033"
+                                                y1="2.68023"
+                                                x2="2.81576"
+                                                y2="2.70282"
+                                                gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#5091CD" />
+                                    <stop offset="1" stop-color="#273A97" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <p class="title">تعليم</p>
+                    </div>
+                </div>
+                <div class="expanded-content edit" id="education">
+                    <svg class="line"
+                         width="1996"
+                         height="1"
+                         viewBox="0 0 1996 1"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="1996"
+                              y1="0.5"
+                              x2="-0.00012207"
+                              y2="0.5"
+                              stroke="white"
+                              stroke-dasharray="8 8" />
+                    </svg>
+                    <form class="inputs-form" action="">
+                        <div class="input-slice">
+                            <label for="">اسم المدرسة / الكلية</label><br />
+                            <input type="text"
+                                   id=""
+                                   placeholder="اسم المدرسة / الكلية" />
+                        </div>
+                        <div class="input-slice">
+                            <label for="">درجة</label><br />
+                            <div class="custom-select-wrapper w-100">
+                                <div class="custom-select"
+                                     class="form-select input"
+                                     aria-label="Default select example">
+                                    <div class="custom-select-trigger">
+                                        <span id="nationality_select"> بكالوريوس</span>
+                                    </div>
+                                    <div class="custom-options">
+                                        <span class="custom-option nationality-option">بكالوريوس</span>
+                                        <span class="custom-option nationality-option">يتقن</span>
+                                        <span class="custom-option nationality-option">مدرسة ثانوية</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-slice">
+                            <label for="">مجال الدراسة</label><br />
+                            <div class="custom-select-wrapper w-100">
+                                <div class="custom-select"
+                                     class="form-select input"
+                                     aria-label="Default select example">
+                                    <div class="custom-select-trigger">
+                                        <span id="nationality_select">علوم</span>
+                                    </div>
+                                    <div class="custom-options">
+                                        <span class="custom-option nationality-option">الفنون</span>
+                                        <span class="custom-option nationality-option">تجارة</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="input-slice">
+                            <label for="">درجة</label><br />
+                            <div class="custom-select-wrapper w-100">
+                                <div class="custom-select"
+                                     class="form-select input"
+                                     aria-label="Default select example">
+                                    <div class="custom-select-trigger">
+                                        <span id="nationality_select">A</span>
+                                    </div>
+                                    <div class="custom-options">
+                                        <span class="custom-option nationality-option">A</span>
+                                        <span class="custom-option nationality-option">B</span>
+                                        <span class="custom-option nationality-option">C</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dates-input-container">
+                            <div class="input-slice date">
+                                <label for="">تاريخ البدء</label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input"
+                                         aria-label="Default select example">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">يناير</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">يناير</span>
+                                            <span class="custom-option nationality-option">فبراير</span>
+                                            <span class="custom-option nationality-option">مارس</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-slice date">
+                                <label for=""></label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input"
+                                         aria-label="Default select example">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">2024</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">2024</span>
+                                            <span class="custom-option nationality-option">2023</span>
+                                            <span class="custom-option nationality-option">2022</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="dates-input-container">
+                            <div class="input-slice date">
+                                <label for="">تاريخ الانتهاء</label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input"
+                                         aria-label="Default select example">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">يناير</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">يناير</span>
+                                            <span class="custom-option nationality-option">فبراير</span>
+                                            <span class="custom-option nationality-option">مارس</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-slice date">
+                                <label for=""></label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input"
+                                         aria-label="Default select example">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">2024</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">2024</span>
+                                            <span class="custom-option nationality-option">2023</span>
+                                            <span class="custom-option nationality-option">2022</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                    <div class="action-btns hidden">
+                        <button class="save-btn">حفظ التغييرات</button>
+                        <button class="cancel-btn">يلغي</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- work experience -->
+            <div class="expanded-container" id="work_experience">
+                <div class="d-flex justify-content-between align-items-center expanded-container-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M21.09 6.98002C20.24 6.04002 18.82 5.57002 16.76 5.57002H16.52V5.53002C16.52 3.85002 16.52 1.77002 12.76 1.77002H11.24C7.47998 1.77002 7.47998 3.86002 7.47998 5.53002V5.58002H7.23998C5.16998 5.58002 3.75998 6.05002 2.90998 6.99002C1.91998 8.09002 1.94998 9.57002 2.04998 10.58L2.05998 10.65L2.13743 11.4633C2.1517 11.6131 2.23236 11.7484 2.35825 11.8307C2.59806 11.9877 2.9994 12.2464 3.23998 12.38C3.37998 12.47 3.52998 12.55 3.67998 12.63C5.38998 13.57 7.26998 14.2 9.17998 14.51C9.26998 15.45 9.67998 16.55 11.87 16.55C14.06 16.55 14.49 15.46 14.56 14.49C16.6 14.16 18.57 13.45 20.35 12.41C20.41 12.38 20.45 12.35 20.5 12.32C20.8967 12.0958 21.3083 11.8195 21.6834 11.5489C21.7965 11.4673 21.8687 11.3413 21.8841 11.2028L21.9 11.06L21.95 10.59C21.96 10.53 21.96 10.48 21.97 10.41C22.05 9.40002 22.03 8.02002 21.09 6.98002ZM13.09 13.83C13.09 14.89 13.09 15.05 11.86 15.05C10.63 15.05 10.63 14.86 10.63 13.84V12.58H13.09V13.83ZM8.90998 5.57002V5.53002C8.90998 3.83002 8.90998 3.20002 11.24 3.20002H12.76C15.09 3.20002 15.09 3.84002 15.09 5.53002V5.58002H8.90998V5.57002Z"
+                                  fill="url(#paint0_linear_578_7129)" />
+                            <path d="M20.8735 13.7344C21.2271 13.5661 21.6344 13.8464 21.599 14.2364L21.24 18.1902C21.03 20.1902 20.21 22.2302 15.81 22.2302H8.19003C3.79003 22.2302 2.97003 20.1902 2.76003 18.2002L2.41932 14.4524C2.38427 14.0669 2.78223 13.787 3.13487 13.9465C4.27428 14.462 6.37742 15.3766 7.6766 15.7169C7.8409 15.7599 7.9738 15.8775 8.04574 16.0314C8.65271 17.3295 9.96914 18.0202 11.87 18.0202C13.7521 18.0202 15.0852 17.3029 15.6942 16.0016C15.7662 15.8476 15.8992 15.7301 16.0636 15.6868C17.4432 15.3238 19.6818 14.3015 20.8735 13.7344Z"
+                                  fill="url(#paint1_linear_578_7129)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_578_7129"
+                                                x1="19.3261"
+                                                y1="1.77007"
+                                                x2="3.78892"
+                                                y2="1.89743"
+                                                gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#273A97" />
+                                    <stop offset="1" stop-color="#5091CD" />
+                                </linearGradient>
+                                <linearGradient id="paint1_linear_578_7129"
+                                                x1="19.0944"
+                                                y1="13.3433"
+                                                x2="4.06903"
+                                                y2="13.5414"
+                                                gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#273A97" />
+                                    <stop offset="1" stop-color="#5091CD" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <p class="title">خبرات العمل</p>
+                    </div>
+                    <button class="add-more-btn">
+                        <p>+ أضف المزيد</p>
+                    </button>
+                </div>
+                <div class="expanded-content edit" id="work_experience">
+                    <svg class="line"
+                         width="1996"
+                         height="1"
+                         viewBox="0 0 1996 1"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="1996"
+                              y1="0.5"
+                              x2="-0.00012207"
+                              y2="0.5"
+                              stroke="white"
+                              stroke-dasharray="8 8" />
+                    </svg>
+
+                    <div class="btn-flex-container justify-content-end mt-2 delete-btn">
+                        <button class="d-flex align-items-center gap-1">
+                            <img src="~/V3/svg/user-ind-profile/delete.svg"
+                                 alt="" />
+                        </button>
+                    </div>
+
+                    <div class="work-experience">
+                        <p class="work-title">مستشار تكنولوجيا المعلومات</p>
+                        <form class="inputs-form mt-2" action="">
+                            <div class="input-slice">
+                                <label for="">مسمى وظيفي</label><br />
+                                <input type="text" id="" placeholder="مسمى وظيفي" />
+                            </div>
+                            <div class="input-slice">
+                                <label for="">اسم الشركة</label><br />
+                                <input type="text" id="" placeholder="اسم الشركة" />
+                            </div>
+
+                            <div class="input-slice">
+                                <label for="">نوع موظف</label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input"
+                                         aria-label="Default select example">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">دوام كامل</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">دوام كامل</span>
+                                            <span class="custom-option nationality-option">دوام جزئى</span>
+                                            <span class="custom-option nationality-option">عقد</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="input-slice">
+                                <label for="">نوع الموقع</label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">في الموقع</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">في الموقع</span>
+                                            <span class="custom-option nationality-option">بعيد</span>
+                                            <span class="custom-option nationality-option">هجين</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dates-input-container">
+                                <div class="input-slice date">
+                                    <label for="">تاريخ البدء</label><br />
+                                    <div class="custom-select-wrapper w-100">
+                                        <div class="custom-select"
+                                             class="form-select input"
+                                             aria-label="Default select example">
+                                            <div class="custom-select-trigger">
+                                                <span id="nationality_select">يناير</span>
+                                            </div>
+                                            <div class="custom-options">
+                                                <span class="custom-option nationality-option">يناير</span>
+                                                <span class="custom-option nationality-option">فبراير</span>
+                                                <span class="custom-option nationality-option">مارس</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-slice date">
+                                    <label for=""></label><br />
+                                    <div class="custom-select-wrapper w-100">
+                                        <div class="custom-select"
+                                             class="form-select input"
+                                             aria-label="Default select example">
+                                            <div class="custom-select-trigger">
+                                                <span id="nationality_select">2024</span>
+                                            </div>
+                                            <div class="custom-options">
+                                                <span class="custom-option nationality-option">2024</span>
+                                                <span class="custom-option nationality-option">2023</span>
+                                                <span class="custom-option nationality-option">2022</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dates-input-container">
+                                <div class="input-slice date">
+                                    <label for="">تاريخ الانتهاء</label><br />
+                                    <div class="custom-select-wrapper w-100">
+                                        <div class="custom-select"
+                                             class="form-select input"
+                                             aria-label="Default select example">
+                                            <div class="custom-select-trigger">
+                                                <span id="nationality_select">يناير</span>
+                                            </div>
+                                            <div class="custom-options">
+                                                <span class="custom-option nationality-option">يناير</span>
+                                                <span class="custom-option nationality-option">فبراير</span>
+                                                <span class="custom-option nationality-option">مارس</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="input-slice date">
+                                    <label for=""></label><br />
+                                    <div class="custom-select-wrapper w-100">
+                                        <div class="custom-select"
+                                             class="form-select input"
+                                             aria-label="Default select example">
+                                            <div class="custom-select-trigger">
+                                                <span id="nationality_select">2024</span>
+                                            </div>
+                                            <div class="custom-options">
+                                                <span class="custom-option nationality-option">2024</span>
+                                                <span class="custom-option nationality-option">2023</span>
+                                                <span class="custom-option nationality-option">2022</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <label for="">شعار الشركة</label>
+                                <div class="upload-container">
+                                    <div>
+                                        <h4>حدد ملفًا أو اسحبه وأفلته هنا</h4>
+                                        <p>
+                                            الوثيقة: 5 ميجا بايت كحد أقصى (PNG، JPG، PDF،
+                                            PPT).
+                                        </p>
+                                    </div>
+
+                                    <div class="d-flex align-items-center gap-3">
+                                        <div id="file-name"></div>
+                                        <div class="line"></div>
+                                        <label for="file-upload"
+                                               class="custom-file-upload">
+                                            <i class="fas fa-upload"></i> رفع ملف
+                                        </label>
+                                        <input id="file-upload"
+                                               type="file"
+                                               onchange="displayFileName(this)" />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="w-100">
+                                <label for="">المسؤوليات</label> <br />
+                                <textarea name=""
+                                          id=""
+                                          placeholder="المسؤوليات"></textarea>
+                            </div>
+                        </form>
+                    </div>
+
+                    <svg class="line mt-3"
+                         width="1996"
+                         height="1"
+                         viewBox="0 0 1996 1"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="1996"
+                              y1="0.5"
+                              x2="-0.00012207"
+                              y2="0.5"
+                              stroke="white"
+                              stroke-dasharray="8 8" />
+                    </svg>
+
+                    <div class="btn-flex-container justify-content-end mt-2 delete-btn">
+                        <button class="d-flex align-items-center gap-1">
+                            <img src="~/V3/svg/user-ind-profile/delete.svg"
+                                 alt="" />
+                        </button>
+                    </div>
+
+                    <div class="action-btns hidden">
+                        <button class="save-btn">حفظ التغييرات</button>
+                        <button class="cancel-btn">يلغي</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- certificates and courses -->
+            <div class="expanded-container" id="certficates_courses">
+                <div class="d-flex justify-content-between align-items-center expanded-container-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  clip-rule="evenodd"
+                                  d="M16.1299 16.18L17.5 21L14.73 19.89C13.3 19.32 11.7 19.32 10.27 19.89L7.49998 21L8.8701 16.18C8.9901 16.2 9.09995 16.2099 9.21995 16.2199C9.28995 16.2199 9.35992 16.23 9.43992 16.23H9.70994L9.90989 16.43C10.5999 17.12 11.52 17.5 12.5 17.5C13.48 17.5 14.4001 17.12 15.0901 16.43L15.29 16.23H15.56C15.64 16.23 15.71 16.2199 15.78 16.2199C15.9 16.2099 16.0099 16.2 16.1299 16.18ZM18.3659 11.031L18.0471 11.35C17.8441 11.553 17.73 11.8289 17.73 12.1159V12.5639C17.73 13.7269 16.8109 14.6689 15.6599 14.7199C15.6279 14.7209 15.5969 14.73 15.5639 14.73H15.1159C14.8289 14.73 14.5531 14.844 14.3501 15.047L14.031 15.3659C13.185 16.2119 11.814 16.2119 10.969 15.3659L10.6499 15.047C10.4469 14.844 10.171 14.73 9.88401 14.73H9.43601C9.40301 14.73 9.37307 14.7219 9.34007 14.7199C8.19007 14.6689 7.27 13.7269 7.27 12.5639V12.1159C7.27 11.8289 7.15586 11.553 6.95286 11.35L6.63401 11.031C5.78801 10.185 5.78801 8.81397 6.63401 7.96897L6.95286 7.65C7.15586 7.447 7.27 7.17101 7.27 6.88401V6.43601C7.27 5.24001 8.23904 4.27 9.43504 4.27H9.88304C10.17 4.27 10.4459 4.15598 10.6489 3.95298L10.968 3.63401C11.814 2.78801 13.185 2.78801 14.03 3.63401L14.3491 3.95298C14.5521 4.15598 14.828 4.27 15.115 4.27H15.563C16.759 4.27 17.728 5.23901 17.728 6.43601V6.88401C17.728 7.17101 17.8419 7.447 18.0449 7.65L18.364 7.96897C19.211 8.81397 19.2109 10.186 18.3659 11.031ZM15.2141 8.56895L13.7199 8.35301C13.6109 8.33701 13.517 8.269 13.469 8.171L12.822 6.86497C12.691 6.59997 12.3119 6.59997 12.1799 6.86497L11.5329 8.171C11.4839 8.269 11.39 8.33701 11.282 8.35301L9.78806 8.56895C9.51406 8.60895 9.40401 8.94494 9.60301 9.13694L10.6831 10.185C10.7621 10.262 10.798 10.372 10.779 10.48L10.532 11.9129C10.482 12.2039 10.788 12.4269 11.051 12.2889L12.3459 11.6109C12.4429 11.5599 12.559 11.5599 12.657 11.6109L13.9529 12.2889C14.2149 12.4259 14.5209 12.2039 14.4709 11.9129L14.2241 10.478C14.2051 10.37 14.241 10.259 14.32 10.183L15.3999 9.13499C15.5969 8.94499 15.4881 8.60895 15.2141 8.56895Z"
+                                  fill="url(#paint0_linear_578_7137)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_578_7137"
+                                                x1="17.2615"
+                                                y1="2.99957"
+                                                x2="7.16015"
+                                                y2="3.04377"
+                                                gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#273A97" />
+                                    <stop offset="1" stop-color="#5091CD" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <p class="title">الشهادات والدورات</p>
+                    </div>
+                    <button class="add-more-btn">
+                        <p>+ أضف المزيد</p>
+                    </button>
+                </div>
+                <div class="expanded-content edit" id="certficates_courses">
+                    <svg class="line"
+                         width="1996"
+                         height="1"
+                         viewBox="0 0 1996 1"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="1996"
+                              y1="0.5"
+                              x2="-0.00012207"
+                              y2="0.5"
+                              stroke="white"
+                              stroke-dasharray="8 8" />
+                    </svg>
+                    <form class="inputs-form" action="">
+                        <div class="input-slice">
+                            <label for="">الشهادة / اسم الدورة</label><br />
+                            <input type="text" id="" placeholder="IT" />
+                        </div>
+                        <div class="input-slice">
+                            <label for="">منظمة</label><br />
+                            <input type="text" id="" placeholder="Microsoft" />
+                        </div>
+
+                        <div class="dates-input-container">
+                            <div class="input-slice date">
+                                <label for="">تاريخ الإصدار</label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input"
+                                         aria-label="Default select example">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">يناير</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">يناير</span>
+                                            <span class="custom-option nationality-option">فبراير</span>
+                                            <span class="custom-option nationality-option">مارس</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="input-slice date">
+                                <label for=""></label><br />
+                                <div class="custom-select-wrapper w-100">
+                                    <div class="custom-select"
+                                         class="form-select input"
+                                         aria-label="Default select example">
+                                        <div class="custom-select-trigger">
+                                            <span id="nationality_select">2024</span>
+                                        </div>
+                                        <div class="custom-options">
+                                            <span class="custom-option nationality-option">2024</span>
+                                            <span class="custom-option nationality-option">2023</span>
+                                            <span class="custom-option nationality-option">2022</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="input-slice">
+                            <label for="">معرف الاعتماد</label><br />
+                            <input type="text" id="" placeholder="Microsoft" />
+                        </div>
+
+                        <div class="input-slice">
+                            <label for="">عنوان URL لبيانات الاعتماد</label><br />
+                            <input type="text" id="" placeholder="Microsoft" />
+                        </div>
+                    </form>
+                    <div class="action-btns hidden">
+                        <button class="save-btn">حفظ التغييرات</button>
+                        <button class="cancel-btn">يلغي</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- skills -->
+            <div class="expanded-container" id="skills">
+                <div class="d-flex justify-content-between align-items-center expanded-container-header">
+                    <div class="d-flex align-items-center gap-2">
+                        <svg width="24"
+                             height="24"
+                             viewBox="0 0 24 24"
+                             fill="none"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M16 2H8C4.5 2 3 4 3 7V17C3 20 4.5 22 8 22H16C19.5 22 21 20 21 17V7C21 4 19.5 2 16 2ZM8 12.25H12C12.41 12.25 12.75 12.59 12.75 13C12.75 13.41 12.41 13.75 12 13.75H8C7.59 13.75 7.25 13.41 7.25 13C7.25 12.59 7.59 12.25 8 12.25ZM16 17.75H8C7.59 17.75 7.25 17.41 7.25 17C7.25 16.59 7.59 16.25 8 16.25H16C16.41 16.25 16.75 16.59 16.75 17C16.75 17.41 16.41 17.75 16 17.75ZM18.5 9.25H16.5C14.98 9.25 13.75 8.02 13.75 6.5V4.5C13.75 4.09 14.09 3.75 14.5 3.75C14.91 3.75 15.25 4.09 15.25 4.5V6.5C15.25 7.19 15.81 7.75 16.5 7.75H18.5C18.91 7.75 19.25 8.09 19.25 8.5C19.25 8.91 18.91 9.25 18.5 9.25Z"
+                                  fill="url(#paint0_linear_578_7145)" />
+                            <defs>
+                                <linearGradient id="paint0_linear_578_7145"
+                                                x1="18.5935"
+                                                y1="2.00007"
+                                                x2="4.60719"
+                                                y2="2.07633"
+                                                gradientUnits="userSpaceOnUse">
+                                    <stop stop-color="#273A97" />
+                                    <stop offset="1" stop-color="#5091CD" />
+                                </linearGradient>
+                            </defs>
+                        </svg>
+
+                        <p class="title">مهارات و إهتمامات</p>
+                    </div>
+                    <button class="add-more-btn">
+                        <p>+ أضف المزيد</p>
+                    </button>
+                </div>
+                <div class="expanded-content edit" id="skills">
+                    <svg class="line"
+                         width="1996"
+                         height="1"
+                         viewBox="0 0 1996 1"
+                         fill="none"
+                         xmlns="http://www.w3.org/2000/svg">
+                        <line x1="1996"
+                              y1="0.5"
+                              x2="-0.00012207"
+                              y2="0.5"
+                              stroke="white"
+                              stroke-dasharray="8 8" />
+                    </svg>
+                    <div class="skills-list">
+                        <p>الكفاءة الفنية</p>
+                        <p>مهارات تحليلية</p>
+                        <p>قدرات حل المشكلات</p>
+                        <p>ادارة مشروع</p>
+                        <p>مهارات البيع الاستشارية</p>
+                        <p>مهارات التواصل</p>
+                        <p>مهارات التعامل مع الآخرين</p>
+                    </div>
+                    <div class="action-btns hidden">
+                        <button class="save-btn">حفظ التغييرات</button>
+                        <button class="cancel-btn">يلغي</button>
+                    </div>
+                </div>
+            </div> *@
+
+
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts {
+    <script asp-append-version="true" src="~/V3/js/user-profile.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const tabItems = document.querySelectorAll('.main_tabs .tab');
+            const tabContents = document.querySelectorAll('.tab-container');
+            const activeTab = document.querySelector('.main_tabs .tab.active');
+            if (activeTab) {
+                const initialTab = activeTab.getAttribute('data-tab');
+                document.getElementById(initialTab).style.display = 'block';
+            }
+
+
+            tabItems.forEach(item => {
+                item.addEventListener('click', function () {
+                    // Remove active class from all tab items
+                    tabItems.forEach(item => item.classList.remove('active'));
+                    // Add active class to the clicked tab item
+                    this.classList.add('active');
+
+                    // Get the target tab content
+                    const tab = this.getAttribute('data-tab');
+
+                    // Hide all tab contents
+                    tabContents.forEach(content => content.style.display = 'none');
+                    // Show the target tab content
+                    // document.getElementById(tab).classList.add('active');
+                    $(`#${tab}`).css({
+                        "opacity": "0",
+                        "display": "block",
+                    }).show().animate({ opacity: 1 })
+                });
+            });
+        });
+
+
+        $(document).ready(function () {
+            $('.tab-btn').click(function () {
+                // Remove active class from all tab buttons
+                $('.tab-btn').removeClass('active');
+
+                // Add active class to the clicked tab button
+                $(this).addClass('active');
+
+                // Get the target id from data-target attribute
+                var targetId = $(this).data('target');
+
+                // Scroll to the target section
+                $('html, body').animate({
+                    scrollTop: $('#' + targetId).offset().top
+                }, 500); // Adjust the duration as needed
+            });
+        });
+
+        $(document).ready(function () {
+            $('.preference .option').click(function () {
+                // Get the closest .preference container
+                var $preference = $(this).closest('.preference');
+
+                // Remove active class from all options within this .preference container
+                $preference.find('.option').removeClass('active');
+
+                // Add active class to the clicked option
+                $(this).addClass('active');
+            });
+        });
+    </script>
+}
